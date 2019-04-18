@@ -48,14 +48,16 @@ import com.revature.utilities.DAOUtilities;
 
     String path = request.getRequestURI().substring(request.getContextPath().length());
     
-//getMyPending(): List<ReimbursementRequest>
+
+ //--------------here we get pending requests----------------------------------------------------------------------//  
     
   if (path.equals("/api/reimbursement-requests/my/pending")) {
 			
 	  List<ReimbursementRequest> requestsPending = dao.findPendingReimbursementRequest();	
 			response.getWriter().append(requestsPending.toString());
 			
-//getMyResolved(): List<ReimbursementRequest>
+
+//-----------------getting resolved requests----------------------------------------------------------------------//
 			
 		} else if (path.equals("/api/reimbursement-requests/my/resolved")) {		
 			List<ReimbursementRequest> requestsResolved = dao.findResolvedReimbursementRequest();
@@ -76,12 +78,15 @@ import com.revature.utilities.DAOUtilities;
 //	dao.updateReimbursementRequest(rreq,1);
 //	response.getWriter().append("Approved: ").append(rreq.toString());
 				
+//-----------------this is where the request gets updated to approved, if thats the case-----------------------//
+				
 				if (dao.updateReimbursementRequest(rreq, 1)) {
 					response.getWriter().append("Approved: ").append(rreq.toString());
 				}
 			} else if (appcode.equals("0")) {
 				
-//deny(id): Request
+//     deny Request
+//-------------------------------denied!------------------------------------------------------------------------------//
 				
 				dao.updateReimbursementRequest(rreq,0);
 				response.getWriter().append("Denied: ").append(rreq.toString());
@@ -96,7 +101,7 @@ import com.revature.utilities.DAOUtilities;
 
 		String path = request.getRequestURI().substring(request.getContextPath().length());
 
-//ReimbursementRequest creation
+//------------------------------------ReimbursementRequest creation--------------------------------------------------//
 		
 		if (path.equals("/api/reimbursement-requests")) {
 			ReimbursementRequest rreq = new Gson().fromJson(request.getReader(), ReimbursementRequest.class);

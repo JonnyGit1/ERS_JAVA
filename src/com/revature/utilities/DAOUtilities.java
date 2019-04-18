@@ -15,13 +15,17 @@ import com.revature.dao.ReimbursementDAOImpl;
 * Class used to retrieve DAO Implementations. Serves as a factory. Also
 manages a single instance of the database connection.
 */
+
+//---------Similar to the connection factory class in example,
+//----------this retrieves DAO implementations and manages data base connections
+
 public class DAOUtilities {
 	
 // need my info here!---------------------------->>>>>>>>>
-	private static final String CONNECTION_USERNAME = "ersmaster";
-	private static final String CONNECTION_PASSWORD = "ersmasterpw";
-	private static final String URL = "jdbc:oracle:thin:@ersdbinstance.cclccpvm73o8.us-east-2.rds.amazonaws.com:1521:ORCL";
-	
+	private static final String instance_un = "ersmaster";
+	private static final String instance_pw = "ersmasterpw";
+	private static final String instance_url = "jdbc:oracle:thin:@ersdbinstance.cclccpvm73o8.us-east-2.rds.amazonaws.com:1521:ORCL";
+//------------------why was this so trickey? just needed to replace local host with AWS RDS instance endpoint	
 	
 
 	
@@ -37,14 +41,14 @@ public class DAOUtilities {
 				System.out.println("Could not register driver!");
 				e.printStackTrace();
 			}
-			connection = DriverManager.getConnection(URL, CONNECTION_USERNAME,CONNECTION_PASSWORD);
+			connection = DriverManager.getConnection(instance_url, instance_un,instance_pw);
 		}
 
 //----------------------If connection was closed then retrieve a new connection------------------------------//
 		
 		if (connection.isClosed()){
 			System.out.println("Opening new connection...");
-			connection = DriverManager.getConnection(URL, CONNECTION_USERNAME,CONNECTION_PASSWORD);
+			connection = DriverManager.getConnection(instance_url, instance_un,instance_pw);
 		}
 		return connection;
 	}
