@@ -16,19 +16,10 @@ public class ReimbursementRequest {
 	
 	public ReimbursementRequest() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
-	/**
-	 * @param id
-	 * @param name
-	 * @param description
-	 * @param amount
-	 * @param date
-	 * @param approved
-	 * @param empId
-	 */
-	public ReimbursementRequest(int id, String name, String description, double amount, Date date, boolean approved,
-			int empId) {
+	
+	public ReimbursementRequest(int id, String name, String description, double amount, Date date, boolean approved, int empId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -98,7 +89,7 @@ public class ReimbursementRequest {
 	
 	@Override
 	public String toString() {
-		return "ReimbursementRequest [rid=" + id + ", name=" + name + ", description=" + description + ", amount="
+		return "ReimbursementRequest [id=" + id + ", name=" + name + ", description=" + description + ", amount="
 				+ amount + ", approved=" + approved + ", empId=" + empId + "]";
 	}
 	
