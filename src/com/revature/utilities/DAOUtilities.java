@@ -17,17 +17,16 @@ import com.revature.dao.ReimbursementDAOImpl;
 
 public class DAOUtilities {
 	
-// need my info here!---------------------------->>>>>>>>>
+//  DB info here!---------------------------->>>>>>>>>
 	private static final String instance_un = "ersmaster";
 	private static final String instance_pw = "ersmasterpw";
 	private static final String instance_url = "jdbc:oracle:thin:@ersdbinstance.cclccpvm73o8.us-east-2.rds.amazonaws.com:1521:ORCL";
-//------------------why was this so trickey? just needed to replace local host with AWS RDS instance endpoint	
+//-------------- AWS RDS instance endpoint	
 	
 
 	
 	private static Connection connection;
-//and here---------------------------------------->>>
-	
+
 	public static synchronized Connection getConnection() throws SQLException {
 		
 		if (connection == null) {

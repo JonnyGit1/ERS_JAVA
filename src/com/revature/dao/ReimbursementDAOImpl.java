@@ -24,12 +24,12 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 		   List<ReimbursementRequest> rreq_list = new ArrayList<>();
 
 		try {
-			connection = DAOUtilities.getConnection();	                    // Get our database
+			connection = DAOUtilities.getConnection();	                   
                           
-			String sql = "SELECT * FROM ReimbursementRequest";			    // Our SQL query
-			stmt = connection.prepareStatement(sql);	                    // Creates the prepared
+			String sql = "SELECT * FROM ReimbursementRequest";			   
+			stmt = connection.prepareStatement(sql);	                  
 
-			ResultSet rs = stmt.executeQuery();			                    // Queries the database
+			ResultSet rs = stmt.executeQuery();			                   
 
 			
 			while (rs.next()) {
@@ -56,11 +56,12 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			// We need to make sure our statements and connections are closed,
-			// or else we could wind up with a memory leak
+		
+			
+			
 			closeResources();
 		}
-		// return the list of Book objects populated by the DB.
+	
 		return rreq_list;
 	}
 
@@ -73,7 +74,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?)"; 
 
 			stmt = connection.prepareStatement(sql);
-			// But that's okay, we can set them all before we execute
+		
 
 			stmt.setInt(1, getNewPK());
 			stmt.setString(2, reimbursementRequest.getName());
@@ -90,9 +91,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 			stmt.setInt(7, reimbursementRequest.getEmpId());
 
 
-//-----------------	If we were able to add our employee to the DB, we want to return true.
-//-----------------This if statement both executes our query, and looks at the return
-			// value to determine how many rows were changed
+
 			if (stmt.executeUpdate() != 0)
 				return true;
 			else

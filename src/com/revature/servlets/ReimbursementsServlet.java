@@ -71,12 +71,11 @@ import com.revature.utilities.DAOUtilities;
 			
 			ReimbursementRequest rreq = dao.findReimbursementRequestByReimbursementId(int_reim_id);
 			
-//approve(id): Request
+
 			
 			if (appcode.equals("1")) {
 				
-//	dao.updateReimbursementRequest(rreq,1);
-//	response.getWriter().append("Approved: ").append(rreq.toString());
+
 				
 //-----------------this is where the request gets updated to approved, if thats the case-----------------------//
 				
@@ -94,9 +93,7 @@ import com.revature.utilities.DAOUtilities;
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request,HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String path = request.getRequestURI().substring(request.getContextPath().length());
