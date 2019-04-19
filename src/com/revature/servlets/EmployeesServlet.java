@@ -47,7 +47,6 @@ public class EmployeesServlet extends HttpServlet {
 		if (path.equals("/api/employees")) {
 			List<Employee> allEmployees = dao.getAllEmployees();
 			
-			
 			response.getWriter().append(allEmployees.toString());
 			
 		} else if ((path.equals("/api/employees/id")) && (request.getParameter("emp_id") != null)) {

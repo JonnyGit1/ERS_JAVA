@@ -90,8 +90,8 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 			stmt.setInt(7, reimbursementRequest.getEmpId());
 
 
-			// If we were able to add our employee to the DB, we want to return true.
-			// This if statement both executes our query, and looks at the return
+//-----------------	If we were able to add our employee to the DB, we want to return true.
+//-----------------This if statement both executes our query, and looks at the return
 			// value to determine how many rows were changed
 			if (stmt.executeUpdate() != 0)
 				return true;
@@ -338,23 +338,21 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 			}
 		}
 		catch (SQLException e) {e.printStackTrace();}
-//		finally{
-//			if (stmtpk != null) {stmtpk.close();}
-//			if (connectionPK != null) {connectionPK.close();}
-//		}
+
 		return new_pk;
 
 	}
 
-	// Closing all resources is important, to prevent memory leaks.
-	// Ideally, you really want to close them in the reverse-order you open them
+//	//----Important---prevent memory leaks by Closing all resources...
+//	// Ideally, close in reverse-order that opened
+	
 	private void closeResources() {
 		try {
 			if (stmt != null)
 				stmt.close();
 			
 		} catch (SQLException e) {
-			System.out.println("Could not close statement!");
+			System.out.println("Statement not Closed.");
 			e.printStackTrace();
 		}
 
@@ -364,7 +362,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				connection.close();
 			
 		} catch (SQLException e) {
-			System.out.println("Could not close connection!");
+			System.out.println("Connection not Closed.");
 			e.printStackTrace();
 		}
 	}

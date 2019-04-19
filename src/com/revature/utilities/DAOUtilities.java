@@ -11,10 +11,6 @@ import com.revature.dao.ReimbursementDAO;
 
 import com.revature.dao.ReimbursementDAOImpl;
 
-/**
-* Class used to retrieve DAO Implementations. Serves as a factory. Also
-manages a single instance of the database connection.
-*/
 
 //---------Similar to the connection factory class in example,
 //----------this retrieves DAO implementations and manages data base connections
@@ -38,17 +34,17 @@ public class DAOUtilities {
 			try {
 				Class.forName("oracle.jdbc.driver.OracleDriver");
 			} catch (ClassNotFoundException e) {
-				System.out.println("Could not register driver!");
+				System.out.println("Cant Drive. Driver Issue.");
 				e.printStackTrace();
 			}
-			connection = DriverManager.getConnection(instance_url, instance_un,instance_pw);
+			connection = DriverManager.getConnection(instance_url, instance_un, instance_pw);
 		}
 
 //----------------------If connection was closed then retrieve a new connection------------------------------//
 		
 		if (connection.isClosed()){
-			System.out.println("Opening new connection...");
-			connection = DriverManager.getConnection(instance_url, instance_un,instance_pw);
+			System.out.println("Connection Open");
+			connection = DriverManager.getConnection(instance_url, instance_un, instance_pw);
 		}
 		return connection;
 	}

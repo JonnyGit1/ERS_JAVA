@@ -30,28 +30,27 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 		try {
 			connection = DAOUtilities.getConnection();	
-			String sql = "SELECT * FROM Employees";	      //    SQL query
 			
-			stmt = connection.prepareStatement(sql);	
+			stmt = connection.prepareStatement("SELECT * FROM Employees");	
 
-			ResultSet rs = stmt.executeQuery();			  //      Query the database
+			ResultSet rset = stmt.executeQuery();			  // execute Query , obtain result set
 
-			
-			while (rs.next()) {
+// while there are employees to grab, get them.	
+			while (rset.next()) {
 			
 				Employee employee = new Employee();
 
 			
-				employee.setId(rs.getInt("empid"));
-				employee.setFirstName(rs.getString("firstname"));
-				employee.setLastName(rs.getString("lastname"));
-				employee.setEmail(rs.getString("email"));
-				employee.setManagerId(rs.getInt("cred"));
+				employee.setId(rset.getInt("empid"));
+				employee.setFirstName(rset.getString("firstname"));
+				employee.setLastName(rset.getString("lastname"));
+				employee.setEmail(rset.getString("email"));
+				employee.setManagerId(rset.getInt("cred"));
 
 	
 				employees.add(employee);
 			}
-			rs.close();
+			rset.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -71,22 +70,22 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 			try {
 				connection = DAOUtilities.getConnection();
-				String sql = "SELECT * FROM Employees WHERE firstname LIKE ?";	
-				stmt = connection.prepareStatement(sql);
+				String sq = "SELECT * FROM Employees WHERE firstname LIKE ?";	
+				stmt = connection.prepareStatement(sq);
 
 		
 				stmt.setString(1, "%" + firstName + "%");
 
-				ResultSet rs = stmt.executeQuery();
+				ResultSet rset = stmt.executeQuery();
 
-				while (rs.next()) {
+				while (rset.next()) {
 					Employee employee = new Employee();
 
-					employee.setId(rs.getInt("empid"));
-					employee.setFirstName(rs.getString("firstname"));
-					employee.setLastName(rs.getString("lastname"));
-					employee.setEmail(rs.getString("email"));
-					employee.setManagerId(rs.getInt("cred"));
+					employee.setId(rset.getInt("empid"));
+					employee.setFirstName(rset.getString("firstname"));
+					employee.setLastName(rset.getString("lastname"));
+					employee.setEmail(rset.getString("email"));
+					employee.setManagerId(rset.getInt("cred"));
 
 					employees.add(employee);
 				}
@@ -107,22 +106,22 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "SELECT * FROM Employees WHERE lastname LIKE ?";	
-			stmt = connection.prepareStatement(sql);
+			String sq = "SELECT * FROM Employees WHERE lastname LIKE ?";	
+			stmt = connection.prepareStatement(sq);
 
 		
 			stmt.setString(1, "%" + lastName + "%");
 
-			ResultSet rs = stmt.executeQuery();
+			ResultSet rset = stmt.executeQuery();
 
-			while (rs.next()) {
+			while (rset.next()) {
 				Employee employee = new Employee();
 
-				employee.setId(rs.getInt("empid"));
-				employee.setFirstName(rs.getString("firstname"));
-				employee.setLastName(rs.getString("lastname"));
-				employee.setEmail(rs.getString("email"));
-				employee.setManagerId(rs.getInt("cred"));
+				employee.setId(rset.getInt("empid"));
+				employee.setFirstName(rset.getString("firstname"));
+				employee.setLastName(rset.getString("lastname"));
+				employee.setEmail(rset.getString("email"));
+				employee.setManagerId(rset.getInt("cred"));
 
 				employees.add(employee);
 			}
@@ -149,15 +148,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 			stmt.setInt(1, id);
 
-			ResultSet rs = stmt.executeQuery();
+			ResultSet rset = stmt.executeQuery();
 
-			if (rs.next()) {
+			if (rset.next()) {
 				employee = new Employee();
-				employee.setId(rs.getInt("empid"));
-				employee.setFirstName(rs.getString("firstname"));
-				employee.setLastName(rs.getString("lastname"));
-				employee.setEmail(rs.getString("email"));
-				employee.setManagerId(rs.getInt("cred"));
+				employee.setId(rset.getInt("empid"));
+				employee.setFirstName(rset.getString("firstname"));
+				employee.setLastName(rset.getString("lastname"));
+				employee.setEmail(rset.getString("email"));
+				employee.setManagerId(rset.getInt("cred"));
 			}
 
 		} catch (SQLException e) {
@@ -185,6 +184,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			stmt.setString(4, employee.getEmail());
 			stmt.setInt(5, employee.getManagerId());
 
+			
+			
 			// If we were able to add our employee to the DB, we want to return true.
 			// This if statement both executes our query, and looks at the return
 			// value to determine how many rows were changed
@@ -207,8 +208,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public boolean updateEmployee(Employee employee) {
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "UPDATE Employees SET firstname=?, lastname=?, cred=?, email=? WHERE empid=?";
-			stmt = connection.prepareStatement(sql);                   ///should i swap these?
+			String sq = "UPDATE Employees SET firstname=?, lastname=?, cred=?, email=? WHERE empid=?";
+			stmt = connection.prepareStatement(sq);                  
 
 			stmt.setString(1, employee.getFirstName());
 			stmt.setString(2, employee.getLastName());
@@ -235,8 +236,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public boolean deleteEmployeeById(int id) {
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "DELETE Employees WHERE empid=?";
-			stmt = connection.prepareStatement(sql);
+			String sq = "DELETE Employees WHERE empid=?";
+			stmt = connection.prepareStatement(sq);
 
 			stmt.setInt(1, id);
 
@@ -254,20 +255,20 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	private int getNewPK() throws SQLException {
-		ResultSet rs=null;
+		ResultSet rset=null;
 		connectionPK = DAOUtilities.getConnection();
-		String sql = "SELECT max(empid) as max FROM Employees";
-		int new_pk = 0;
+		String sq = "SELECT max(empid) as max FROM Employees";
+		int new_prime_key = 0;
 		try {
 			stmtpk = connectionPK.createStatement();
-			rs=stmtpk.executeQuery(sql);
-			while(rs.next()){
-				new_pk = (rs.getInt("max")) + 1;
+			rset=stmtpk.executeQuery(sq);
+			while(rset.next()){
+				new_prime_key = (rset.getInt("max")) + 1;
 			}
 		}
 		catch (SQLException e) {e.printStackTrace();}
 
-		return new_pk;
+		return new_prime_key;
 
 	}
 

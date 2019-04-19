@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Jonny Kool LLC</title>
+</head>
+<body>
+
+
+<h2>Welcome to Jonny Kool LLC Reimbursments</h2>
+
+<form method="post" action="/JonnyKoolERS/login">
+	<input type="text" placeholder="username" id="un"><br>
+	<input type="password" placeholder="password" id="pw"><br>
+	<input type="submit" value="Enter">
+</form>
+
+
+
+<form>
+<label for="title">Title</label> <input type="text" id="title"> <br>
+<label for="description">Description</label> <input type="text" id="description"> <br>
+<button type="button" id="createTodoBtn">Create!</button>
+</form>
+
+
+
+<br><br><br><br><br><br><br><br>
+
+
+	<table>
+		<thead>
+			<tr>
+				<th>Todo ID</th>
+				<th>Title</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody id="todoTable"></tbody>
+	</table>
+
+	
+<script src="./index.js"></script>
+
+</body>
+</html>
